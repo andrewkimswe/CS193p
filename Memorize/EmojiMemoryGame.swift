@@ -10,6 +10,8 @@ import SwiftUI
 
 // View Model
 class EmojiMemoryGame: ObservableObject {
+  typealias Card = MemoryGame<String>.Card
+  
   private static let emojis = ["🦋", "🪺", "🏔️", "🦉", "🦊", "🐌", "🦎", "🫎", "🐿️", "🍂", "🐦‍⬛"]
   
   @Published private var gameModel = EmojiMemoryGame.createMemoryGame()
@@ -24,8 +26,16 @@ class EmojiMemoryGame: ObservableObject {
     }
   }
   
-  var cards: Array<MemoryGame<String>.Card> {
-    return gameModel.cards
+  var cards: Array<Card> {
+    gameModel.cards
+  }
+  
+  var color: Color {
+    Color(hue: 0.442, saturation: 0.99, brightness: 0.985)
+  }
+  
+  var score: Int {
+    gameModel.score
   }
   
   // MARK: - Intents
@@ -34,7 +44,7 @@ class EmojiMemoryGame: ObservableObject {
     gameModel.shuffle()
   }
   
-  func choose(_ card: MemoryGame<String>.Card) {
+  func choose(_ card: Card) {
     // intent function
     gameModel.choose(card)
   }
